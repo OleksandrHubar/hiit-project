@@ -25,9 +25,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let exerciseList = document.createElement("ul");
 
+      let totalReps = 0; // Додаємо змінну для підрахунку повторів
+
       if (participant.exerciseStats) {
           for (let exercise in participant.exerciseStats) {
               let stats = participant.exerciseStats[exercise];
+              totalReps += stats.totalReps; // Підсумовуємо всі повтори
               let listItem = document.createElement("li");
               listItem.textContent = `${exercise}: ${stats.totalReps} reps (${stats.timesSelected} times) - ${stats.caloriesBurned.toFixed(2)} kcal`;
               exerciseList.appendChild(listItem);
@@ -37,6 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
       let totalCalories = document.createElement("p");
       totalCalories.textContent = `Total Calories Burned: ${participant.currentCalories}`;
       participantDiv.appendChild(totalCalories);
+
+      let totalRepsElement = document.createElement("p");
+      totalRepsElement.textContent = `Total Repetitions: ${totalReps}`; // Додаємо загальну кількість повторів
+      participantDiv.appendChild(totalRepsElement);
 
       participantDiv.appendChild(exerciseList);
       resultsContainer.appendChild(participantDiv);
