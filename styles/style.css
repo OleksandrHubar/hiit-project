@@ -1,0 +1,92 @@
+/* Загальні стилі */
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(135deg, #001f3f, #0074D9, #39CCCC);
+  color: #fff;
+}
+
+.container {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #00FFFF;
+}
+
+button {
+  background-color: #0074D9;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+  box-shadow: 0px 0px 10px #0074D9, 0px 0px 20px #39CCCC;
+}
+
+button:hover {
+  background-color: #001f3f;
+  box-shadow: 0px 0px 15px #39CCCC, 0px 0px 30px #0074D9;
+  color: #fff;
+}
+
+/* Стиль для активного обладнання */
+.equipment-btn {
+  background-color: #0074D9;
+  box-shadow: 0px 0px 10px #0074D9, 0px 0px 20px #39CCCC;
+}
+
+.equipment-btn.selected {
+  background-color: #D90000;
+  box-shadow: 0px 0px 10px #D90000, 0px 0px 20px #FF3333;
+}
+
+.equipment-btn.disabled, .inactive-equipment {
+  background-color: #8B0000;
+  color: #fff;
+  box-shadow: 0px 0px 10px #8B0000, 0px 0px 20px #FF4444;
+  text-decoration: line-through;
+}
+
+/* Стиль для вибраних вправ */
+.exercise-btn {
+  background-color: #004d00;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+  box-shadow: 0px 0px 10px #004d00, 0px 0px 20px #008000;
+}
+
+.exercise-btn.selected {
+  background-color: #008000;
+  box-shadow: 0px 0px 15px #00ff00, 0px 0px 30px #008000;
+  font-weight: bold;
+}
+
+/* Стиль для лічильника вибраних вправ */
+#selectedCount {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0f0;
+  margin-top: 10px;
+  text-shadow: 0px 0px 10px #0f0;
+}

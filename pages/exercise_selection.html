@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Exercises</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Select Equipment and Exercises</h1>
+        
+        <h2>Available Equipment</h2>
+        <div id="equipmentContainer"></div>
+        
+        <h2>Select Exercise Category</h2>
+        <div id="categoryButtons">
+            <button class="category-btn" data-category="upper_body">Upper Body</button>
+            <button class="category-btn" data-category="lower_body">Lower Body</button>
+            <button class="category-btn" data-category="full_body">Full Body</button>
+        </div>
+        
+        <h2>Choose Exercises</h2>
+        <div id="exerciseContainer"></div>
+        
+        <button id="nextButton">Next</button>
+        <button id="backButton">Back</button>
+    </div>
+    
+    <script src="../js/exercise_database.js"></script>
+    <script src="../js/exercise_selection.js"></script>
+</body>
+</html>

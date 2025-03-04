@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Participants</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Participants</h1>
+        
+        <label for="numParticipants">Number of Participants:</label>
+        <input type="number" id="numParticipants" min="1" max="10" placeholder="Enter number" required>
+        <button id="continueButton">Continue</button>
+        
+        <div id="participantsForm" class="hidden"></div>
+        <button id="backButton">Back</button>
+    </div>
+    
+    <script src="../js/participants.js"></script>
+</body>
+</html>
