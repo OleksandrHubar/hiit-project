@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const logExerciseButton = document.getElementById("logExercise");
   const repsInput = document.getElementById("repsInput");
   const progressList = document.getElementById("progressList");
+  const weightSelectorContainer = document.getElementById("weightSelectorContainer");
+  const weightSelector = document.getElementById("weightSelector");
+  const decreaseWeightButton = document.getElementById("decreaseWeight");
+  const increaseWeightButton = document.getElementById("increaseWeight");
   const endWorkoutButton = document.getElementById("endWorkout");
   const backButton = document.getElementById("backButton");
   const globalTimer = document.getElementById("globalTimer");
@@ -63,23 +67,85 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  function createExerciseButtons() {
+    function createExerciseButtons() {
       exerciseButtons.innerHTML = "";
-      let exercises = exerciseDatabase.filter(exercise => selectedExercises.includes(exercise.name));
-      exercises.forEach(exercise => {
+      let allExercises = [];
+
+      // Додаємо всі вправи з кожної категорії
+      Object.values(exerciseDatabase).forEach(category => {
+          allExercises = allExercises.concat(category.filter(exercise => selectedExercises.includes(exercise.name)));
+      });
+
+      allExercises.forEach(exercise => {
           let button = document.createElement("button");
           button.textContent = exercise.name;
           button.classList.add("exercise-btn");
-          
+
           button.addEventListener("click", function () {
               selectedExercise = exercise.name;
+              selectedWeight = null;
               document.querySelectorAll(".exercise-btn").forEach(btn => btn.classList.remove("selected"));
               button.classList.add("selected");
+
+              if (exercise.weights) {
+                  weightSelectorContainer.style.display = "block";
+                  weightSelector.innerHTML = "";
+
+                  exercise.weights.forEach(weight => {
+                      let option = document.createElement("option");
+                      option.value = weight;
+                      option.textContent = `${weight} kg`;
+                      weightSelector.appendChild(option);
+                  });
+
+                  selectedWeight = parseFloat(weightSelector.value);
+              } else {
+                  weightSelectorContainer.style.display = "none";
+              }
           });
-          
+
           exerciseButtons.appendChild(button);
       });
   }
+
+
+
+  // Змінюємо вагу при зміні у випадаючому списку
+  weightSelector.addEventListener("change", function () {
+    selectedWeight = parseFloat(weightSelector.value);
+  });
+
+  // Кнопка "-" (Зменшити вагу)
+  decreaseWeightButton.addEventListener("click", function () {
+    if (!selectedExercise) return;
+    
+    const exerciseData = exerciseDatabase.find(ex => ex.name === selectedExercise);
+    if (!exerciseData || !exerciseData.weights) return;
+    
+    let weights = selectedExercise.weights;
+    let currentIndex = weights.indexOf(selectedWeight);
+    
+    if (currentIndex > 0) {
+        selectedWeight = weights[currentIndex - 1];
+        weightSelector.value = selectedWeight;
+    }
+  });
+
+  // Кнопка "+" (Збільшити вагу)
+  increaseWeightButton.addEventListener("click", function () {
+    if (!selectedExercise) return;
+
+    if (!selectedExercise || !selectedExercise.weights) return;
+    
+    let weights = selectedExercise.weights;
+    let currentIndex = weights.indexOf(selectedWeight);
+    
+    if (currentIndex < weights.length - 1) {
+        selectedWeight = weights[currentIndex + 1];
+        weightSelector.value = selectedWeight;
+    }
+  });
+
 
   logExerciseButton.addEventListener("click", function () {
       const reps = parseInt(repsInput.value);
@@ -98,13 +164,35 @@ document.addEventListener("DOMContentLoaded", function () {
       
       console.log("Logging exercise for:", selectedParticipant);
       
-      const exerciseData = exerciseDatabase.find(ex => ex.name === selectedExercise);
+     /* if (exerciseData.weight) {
+        selectedWeight = exerciseData.weights[0]; // Повертаємо вагу у значення за замовчуванням
+        weightSelector.value = selectedWeight;
+      } */
+
+      let exerciseData = null;
+      
+
+      // Проходимо по всіх категоріях та шукаємо вправу
+      Object.values(exerciseDatabase).forEach(category => {
+          let foundExercise = category.find(ex => ex.name === selectedExercise);
+          if (foundExercise) {
+              exerciseData = foundExercise;
+          }
+      });
+
       if (!exerciseData) {
           console.error("Exercise not found in database.");
           return;
       }
 
-      const caloriesPerRep = exerciseData.calories[selectedParticipant.gender] || 0;
+
+      let caloriesPerRep = exerciseData.calories[selectedParticipant.gender] || 0;
+
+      // Якщо у вправи є ваги - враховуємо множник калорій на 1 кг
+      if (exerciseData.weights && selectedWeight !==null) {
+        caloriesPerRep += selectedWeight * exerciseData.calories_per_kg;
+      }
+
       const totalCaloriesBurned = reps * caloriesPerRep;
 
       selectedParticipant.currentCalories = parseFloat((selectedParticipant.currentCalories + totalCaloriesBurned).toFixed(1));
@@ -128,7 +216,10 @@ document.addEventListener("DOMContentLoaded", function () {
   selectedParticipant.exerciseStats[selectedExercise].timesSelected += 1;
   selectedParticipant.exerciseStats[selectedExercise].caloriesBurned += totalCaloriesBurned;
       
-      let logEntry = `${selectedParticipant.name} performed ${reps} reps of ${selectedExercise} - ${parseFloat((totalCaloriesBurned).toFixed(1))} kcal`;
+    let logEntry = `${selectedParticipant.name} performed ${reps} reps of ${selectedExercise}` + 
+      (selectedWeight ? ` (${selectedWeight} kg)` : "") + 
+      ` - ${parseFloat((totalCaloriesBurned).toFixed(1))} kcal`;
+
 
       workoutProgress.push(logEntry);
       
