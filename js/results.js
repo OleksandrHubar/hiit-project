@@ -23,14 +23,22 @@ document.addEventListener("DOMContentLoaded", function () {
       nameHeader.textContent = `${participant.name} - ${participant.currentCalories} kcal`;
       participantDiv.appendChild(nameHeader);
 
+      // Додаємо Progress Circle
+      let progressCircle = document.createElement("div");
+      progressCircle.classList.add("progress-circle");
+      let progressPercentage = (participant.currentCalories / participant.targetCalories) * 360;
+      progressCircle.style.background = `conic-gradient(purple ${progressPercentage}deg, #ccc 0deg)`;
+
+      participantDiv.appendChild(progressCircle);
+
       let exerciseList = document.createElement("ul");
 
-      let totalReps = 0; // Додаємо змінну для підрахунку повторів
+      let totalReps = 0; // Підрахунок всіх повторів
 
       if (participant.exerciseStats) {
           for (let exercise in participant.exerciseStats) {
               let stats = participant.exerciseStats[exercise];
-              totalReps += stats.totalReps; // Підсумовуємо всі повтори
+              totalReps += stats.totalReps;
               let listItem = document.createElement("li");
               listItem.textContent = `${exercise}: ${stats.totalReps} reps (${stats.timesSelected} times) - ${stats.caloriesBurned.toFixed(2)} kcal`;
               exerciseList.appendChild(listItem);
@@ -42,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
       participantDiv.appendChild(totalCalories);
 
       let totalRepsElement = document.createElement("p");
-      totalRepsElement.textContent = `Total Repetitions: ${totalReps}`; // Додаємо загальну кількість повторів
+      totalRepsElement.textContent = `Total Repetitions: ${totalReps}`;
       participantDiv.appendChild(totalRepsElement);
 
       participantDiv.appendChild(exerciseList);
