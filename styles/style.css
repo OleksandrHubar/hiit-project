@@ -253,7 +253,7 @@ select {
   height: 40px;
   border-radius: 50%;
   position: absolute;
-  left: 10px;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
@@ -268,9 +268,12 @@ select {
 }
 
 .participant-btn span {
-  margin-left: 60px;
+  margin-left: 15px;
   display: block;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @keyframes modalFadeIn {
@@ -281,6 +284,27 @@ select {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Safari-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .exercise-btn {
+    display: inline-block;
+    -webkit-appearance: none;
+  }
+
+  #exerciseContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .exercise-btn {
+    flex: 0 1 calc(50% - 20px);
+    margin: 5px;
   }
 }
 
@@ -316,17 +340,18 @@ select {
 
   .participant-btn {
     padding: 15px;
-    padding-left: 60px;
+    padding-left: 55px;
   }
 
   .progress-circle {
     width: 35px;
     height: 35px;
+    left: 10px;
     font-size: 12px;
   }
 
   .participant-btn span {
-    margin-left: 50px;
+    margin-left: 10px;
   }
 
   .participant-entry {
@@ -366,6 +391,12 @@ select {
 
   .loading-text {
     font-size: 16px;
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    .exercise-btn {
+      flex: 0 1 100%;
+    }
   }
 }
 
