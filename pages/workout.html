@@ -1,42 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#4CAF50" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <title>Workout Session</title>
-    <link rel="stylesheet" href="../styles/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../styles/style.css" />
+  </head>
+  <body>
     <div class="container">
-        <h1>Workout Session</h1>
-        
-        <h2>Global Timer: <span id="globalTimer">00:00</span></h2>
+      <h1>Workout Session</h1>
 
-        <h2>Select Participant:</h2>
-        <div id="participantList" class="button-group"></div>
-        
-        <h2>Select Exercise:</h2>
-        <div id="exerciseButtons" class="button-group"></div>
+      <h2>Global Timer: <span id="globalTimer">00:00</span></h2>
 
-        <div id="weightSelectorContainer" style="display: none;">
-          <label for="weightSelector">Select Weight:</label>
-          <select id="weightSelector"></select>
-          <button id="increaseWeight">+</button>
-          <button id="decreaseWeight">-</button>
+      <h2>Select Participant:</h2>
+      <div id="participantList" class="button-group"></div>
+
+      <h2>Select Exercise:</h2>
+      <div id="exerciseButtons" class="button-group"></div>
+
+      <div id="weightSelectorContainer" style="display: none">
+        <label for="weightSelector">Select Weight:</label>
+        <select id="weightSelector"></select>
+        <button id="increaseWeight">+</button>
+        <button id="decreaseWeight">-</button>
       </div>
-        
-        <label for="repsInput">Enter Repetitions:</label>
-        <input type="number" id="repsInput" min="1">
-        
-        <button id="logExercise">Log Exercise</button>
-        
-        <h2>Workout Progress</h2>
-        <ul id="progressList"></ul>
-        
-        <button id="endWorkout">Finish Workout</button>
-        <button id="backButton">Back</button>
+
+      <button class="open-form-btn" id="openRepsForm">
+        Ввести кількість повторень
+      </button>
+
+      <h2>Workout Progress</h2>
+      <ul id="progressList"></ul>
+
+      <button id="endWorkout">Finish Workout</button>
+      <button id="backButton">Back</button>
     </div>
-    
+
+    <!-- Модальна форма для введення повторень -->
+    <div class="modal-overlay" id="repsModal">
+      <div class="modal-form">
+        <div class="modal-header">
+          <h2>Введіть кількість повторень</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+        <form id="repsForm">
+          <div class="form-group">
+            <label class="form-label">Кількість повторень</label>
+            <input
+              type="number"
+              class="form-input"
+              id="repsInput"
+              min="1"
+              required
+            />
+          </div>
+          <button type="submit" class="form-submit">Зберегти</button>
+        </form>
+      </div>
+    </div>
+
     <script src="../js/workout.js"></script>
-</body>
+  </body>
 </html>
