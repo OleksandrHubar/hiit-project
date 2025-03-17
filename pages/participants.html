@@ -1,23 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Enter Participants</title>
-    <link rel="stylesheet" href="../styles/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../styles/style.css" />
+  </head>
+  <body>
     <div class="container">
-        <h1>Enter Participants</h1>
-        
-        <label for="numParticipants">Number of Participants:</label>
-        <input type="number" id="numParticipants" min="1" max="10" placeholder="Enter number" required>
-        <button id="continueButton">Continue</button>
-        
-        <div id="participantsForm" class="hidden"></div>
-        <button id="backButton">Back</button>
+      <h1>Enter Participants</h1>
+
+      <button class="open-form-btn" id="openParticipantsForm">
+        Ввести кількість учасників
+      </button>
+      <button id="continueButton">Continue</button>
+
+      <div id="participantsForm" class="hidden"></div>
+      <button id="backButton">Back</button>
     </div>
-    
+
+    <!-- Модальна форма для введення кількості учасників -->
+    <div class="modal-overlay" id="participantsModal">
+      <div class="modal-form">
+        <div class="modal-header">
+          <h2>Введіть кількість учасників</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+        <form id="participantsNumberForm">
+          <div class="form-group">
+            <label class="form-label">Кількість учасників (1-10)</label>
+            <input
+              type="number"
+              class="form-input"
+              id="numParticipants"
+              min="1"
+              max="10"
+              required
+            />
+          </div>
+          <button type="submit" class="form-submit">Зберегти</button>
+        </form>
+      </div>
+    </div>
+
     <script src="../js/participants.js"></script>
-</body>
+  </body>
 </html>
